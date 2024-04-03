@@ -1,0 +1,13 @@
+/.idea
+/.local
+/.eslintcache
+/.stylelintcache
+/.output
+/dist
+/node_modules
+/.env
+/yarn.lock
+/package-lock.json
+/yarn-error.log
+/auto-imports.d.ts
+/components.d.ts

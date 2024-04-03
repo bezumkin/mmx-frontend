@@ -1,0 +1,56 @@
+{
+  "license": "MIT",
+  "name": "@vesp/mmx-frontend",
+  "description": "The port of Vesp frontend for MODX",
+  "version": "1.0.4",
+  "type": "module",
+  "files": [
+    "assets",
+    "dist",
+    "src/config.js"
+  ],
+  "main": "./dist/mmx.umd.cjs",
+  "module": "./dist/mmx.js",
+  "exports": {
+    ".": {
+      "import": "./dist/mmx.js",
+      "require": "./dist/mmx.umd.cjs"
+    },
+    "./config": "./src/config.js",
+    "./assets/toast": "./assets/_toast.scss",
+    "./assets/components": "./assets/_components.scss"
+  },
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "vite build && vue-tsc --emitDeclarationOnly --noEmit false",
+    "eslint": "eslint --ext .js,.vue ./src",
+    "eslint:fix": "eslint --fix --ext .js,.vue ./src"
+  },
+  "dependencies": {
+    "@vueuse/core": "^10.9.0",
+    "bootstrap-scss": "^5.3.0",
+    "bootstrap-vue-next": "0.16.6",
+    "ofetch": "^1.3.4",
+    "vite-plugin-pages": "^0.32.0",
+    "vue": "^3.4.21",
+    "vue-router": "^4.3.0",
+    "vue-toastification": "^2.0.0-rc.5"
+  },
+  "devDependencies": {
+    "@nuxtjs/eslint-config-typescript": "^12.1.0",
+    "@types/node": "^20.12.3",
+    "@typescript-eslint/eslint-plugin": "^7.4.0",
+    "@vitejs/plugin-vue": "^4.1.0",
+    "eslint": "^8.35.0",
+    "eslint-config-prettier": "^8.7.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.8.4",
+    "sass": "^1.61.0",
+    "typescript": "^5.4.3",
+    "unplugin-auto-import": "^0.17.5",
+    "unplugin-vue-components": "^0.26.0",
+    "vite": "^5.1.5",
+    "vite-plugin-eslint": "^1.8.1",
+    "vue-tsc": "^2.0.7"
+  }
+}
