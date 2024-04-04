@@ -18,3 +18,19 @@ export type MmxTableOnLoad = (data: {total: number; rows: any[]; [key: string]: 
   rows: any[]
   [key: string]: any
 }
+
+export type MmxFile = {
+  id?: number
+  uuid?: string
+  updated_at?: string
+  [key: string]: any
+}
+
+export type MmxFileOptions = {
+  w?: string | number
+  h?: string | number
+  fit?: string
+  fm?: string
+  t?: string | number
+  [key: string]: any
+}

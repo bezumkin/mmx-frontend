@@ -6,6 +6,7 @@ import MmxTable from './components/table.vue'
 import MmxConfirm from './components/confirm.vue'
 import MmxInputComboBox from './components/input/combo-box.vue'
 import {useLexicon} from './utils/use-lexicon.ts'
+import {getImageLink} from './utils/use-api.ts'
 
 function createMmx(options: Record<string, any> = {}) {
   const namespace = options.namespace || 'mmx'
@@ -24,6 +25,7 @@ function createMmx(options: Record<string, any> = {}) {
       app.config.globalProperties.namespace = namespace
       app.config.globalProperties.baseURL = `/${namespace}/`
       app.config.globalProperties.$t = useLexicon
+      app.config.globalProperties.$image = getImageLink
 
       app.component('MmxTable', MmxTable)
       app.component('MmxModal', MmxModal)
@@ -46,5 +48,6 @@ declare module 'vue' {
   }
   export interface ComponentCustomProperties {
     $t: typeof useLexicon
+    $image: typeof getImageLink
   }
 }
