@@ -1,4 +1,4 @@
-export {createMmx, MmxModal, MmxTable, MmxConfirm, MmxInputComboBox} from './plugin.js'
+export {createMmx, MmxModal, MmxTable, MmxConfirm, MmxInputComboBox, MmxInputAlias} from './plugin.js'
 export {useConfig} from './utils/use-config.ts'
 export {useError} from './utils/use-error.ts'
 export {useLexicon, useLexicon as $t} from './utils/use-lexicon.ts'

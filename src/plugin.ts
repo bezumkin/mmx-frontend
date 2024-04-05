@@ -5,6 +5,7 @@ import MmxModal from './components/modal.vue'
 import MmxTable from './components/table.vue'
 import MmxConfirm from './components/confirm.vue'
 import MmxInputComboBox from './components/input/combo-box.vue'
+import MmxInputAlias from './components/input/alias.vue'
 import {useLexicon} from './utils/use-lexicon.ts'
 import {getImageLink} from './utils/use-api.ts'
 
@@ -31,13 +32,14 @@ function createMmx(options: Record<string, any> = {}) {
       app.component('MmxModal', MmxModal)
       app.component('MmxConfirm', MmxConfirm)
       app.component('MmxInputComboBox', MmxInputComboBox)
+      app.component('MmxInputAlias', MmxInputAlias)
 
       app.use(Toast, ToastOptions)
     },
   }
 }
 
-export {createMmx, MmxModal, MmxTable, MmxConfirm, MmxInputComboBox}
+export {createMmx, MmxModal, MmxTable, MmxConfirm, MmxInputComboBox, MmxInputAlias}
 
 declare module 'vue' {
   export interface GlobalComponents {
