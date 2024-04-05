@@ -1,6 +1,9 @@
 <template>
   <section class="mmx-modal mmx-confirm">
     <BModal ref="modal" :model-value="showModal" v-bind="modalProps" :title="$t(title)">
+      <template #default>
+        {{ $t('components.delete.confirm') }}
+      </template>
       <template #footer>
         <slot ref="footer" name="footer" v-bind="{hide}">
           <BButton name="cancel" :variant="props.cancelVariant" @click="hide">
