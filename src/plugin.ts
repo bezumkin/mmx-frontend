@@ -1,6 +1,6 @@
 // @ts-nocheck
 import {App} from 'vue'
-import Toast, {POSITION} from 'vue-toastification'
+import Toast from 'vue-toastification'
 import MmxModal from './components/modal.vue'
 import MmxTable from './components/table.vue'
 import MmxConfirm from './components/confirm.vue'
@@ -8,33 +8,35 @@ import MmxInputComboBox from './components/input/combo-box.vue'
 import MmxInputAlias from './components/input/alias.vue'
 import {useLexicon} from './utils/use-lexicon.ts'
 import {getImageLink} from './utils/use-api.ts'
+import {setNamespace} from './utils/use-namespace.ts'
 
 function createMmx(options: Record<string, any> = {}) {
-  const namespace = options.namespace || 'mmx'
-  const ToastOptions = {
-    position: POSITION.TOP_RIGHT,
-    maxToasts: 5,
-    timeout: 5000,
-    closeButton: false,
-    closeOnClick: false,
-    transition: 'Vue-Toastification__slideBlurred',
-    ...(options.toast || {}),
-  }
+  setNamespace(options.namespace || 'mmx')
 
   return {
     install: (app: App) => {
-      app.config.globalProperties.namespace = namespace
-      app.config.globalProperties.baseURL = `/${namespace}/`
       app.config.globalProperties.$t = useLexicon
       app.config.globalProperties.$image = getImageLink
 
-      app.component('MmxTable', MmxTable)
-      app.component('MmxModal', MmxModal)
-      app.component('MmxConfirm', MmxConfirm)
-      app.component('MmxInputComboBox', MmxInputComboBox)
-      app.component('MmxInputAlias', MmxInputAlias)
+      if (options.components !== false) {
+        app.component('MmxTable', MmxTable)
+        app.component('MmxModal', MmxModal)
+        app.component('MmxConfirm', MmxConfirm)
+        app.component('MmxInputComboBox', MmxInputComboBox)
+        app.component('MmxInputAlias', MmxInputAlias)
+      }
 
-      app.use(Toast, ToastOptions)
+      if (options.toast !== false) {
+        app.use(Toast, {
+          position: 'top-right',
+          maxToasts: 5,
+          timeout: 5000,
+          closeButton: false,
+          closeOnClick: false,
+          transition: 'Vue-Toastification__slideBlurred',
+          ...(options.toast || {}),
+        })
+      }
     },
   }
 }

@@ -1,17 +1,8 @@
 import {type FetchContext, type FetchOptions, ofetch} from 'ofetch'
-import {getCurrentInstance} from 'vue'
 import {MmxFile, MmxFileOptions} from '../types.ts'
+import {getNamespace} from './use-namespace.ts'
 import {useToastError} from './use-toast'
 import {useLexicon} from './use-lexicon'
-
-let namespace: string
-
-function getNamespace(): string {
-  if (!namespace) {
-    namespace = getCurrentInstance()?.appContext?.config.globalProperties.namespace || 'mmx'
-  }
-  return namespace
-}
 
 export function getImageLink(file: MmxFile | Record<string, any>, options?: MmxFileOptions, prefix?: string): string {
   const params = [getNamespace(), prefix || 'image', file.uuid || file.id]

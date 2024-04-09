@@ -1,10 +1,10 @@
-import {getCurrentInstance} from 'vue'
+import {getNamespace} from './use-namespace.ts'
 
 let lexiconKey: string
 
 export function useLexicon(key: string, placeholders?: Record<string, string | number>, amount?: number | string) {
   if (!lexiconKey) {
-    const namespace = getCurrentInstance()?.appContext?.config.globalProperties.namespace || 'mmx'
+    const namespace = getNamespace()
     lexiconKey = namespace
       .split('-')
       .map((i: string, idx: number) => (!idx ? i.toLowerCase() : i.charAt(0).toUpperCase() + i.slice(1).toLowerCase()))

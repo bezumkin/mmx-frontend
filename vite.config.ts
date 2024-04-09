@@ -13,9 +13,11 @@ export default defineConfig({
   ],
   build: {
     lib: {
-      entry: './src/index.ts',
+      entry: ['./src/index.ts', './src/api.ts'],
       name: 'MmxFrontend',
-      fileName: 'mmx',
+      fileName(type, file) {
+        return file + '.' + type + '.js'
+      },
     },
     rollupOptions: {
       external: [

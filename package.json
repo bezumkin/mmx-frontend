@@ -2,29 +2,34 @@
   "license": "MIT",
   "name": "@vesp/mmx-frontend",
   "description": "The port of Vesp frontend for MODX",
-  "version": "1.2.0",
+  "version": "1.3.1",
   "type": "module",
   "files": [
     "assets",
     "dist",
     "src/config.js"
   ],
-  "main": "./dist/mmx.umd.cjs",
-  "module": "./dist/mmx.js",
+  "main": "./dist/index.cjs.js",
   "exports": {
     ".": {
-      "import": "./dist/mmx.js",
-      "require": "./dist/mmx.umd.cjs"
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.cjs.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./api": {
+      "import": "./dist/api.es.js",
+      "require": "./dist/api.cjs.js",
+      "types": "./dist/api.d.ts"
     },
     "./config": "./src/config.js",
     "./assets/toast": "./assets/_toast.scss",
     "./assets/components": "./assets/_components.scss"
   },
-  "types": "./dist/index.d.ts",
   "scripts": {
     "build": "vite build && vue-tsc --emitDeclarationOnly --noEmit false",
     "eslint": "eslint --ext .js,.vue ./src",
-    "eslint:fix": "eslint --fix --ext .js,.vue ./src"
+    "eslint:fix": "eslint --fix --ext .js,.vue ./src",
+    "analyze": "vite-bundle-visualizer"
   },
   "dependencies": {
     "@vueuse/core": "^10.9.0",
@@ -51,6 +56,7 @@
     "unplugin-auto-import": "^0.17.5",
     "unplugin-vue-components": "^0.26.0",
     "vite": "^5.1.5",
+    "vite-bundle-visualizer": "^1.1.0",
     "vite-plugin-eslint": "^1.8.1",
     "vue-tsc": "^2.0.7"
   }
