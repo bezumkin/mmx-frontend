@@ -49,6 +49,7 @@ declare module 'vue' {
     MmxTable: typeof MmxTable
     MmxConfirm: typeof MmxConfirm
     MmxInputComboBox: typeof MmxInputComboBox
+    MmxInputAlias: typeof MmxInputAlias
   }
   export interface ComponentCustomProperties {
     $t: typeof useLexicon

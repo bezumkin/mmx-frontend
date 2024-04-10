@@ -1,11 +1,21 @@
 import {mergeConfig} from 'vite'
 import vue from '@vitejs/plugin-vue'
 import ai from 'unplugin-auto-import/vite'
-// @ts-ignore
 import eslint from 'vite-plugin-eslint'
 import components from 'unplugin-vue-components/vite'
 import {BootstrapVueNextResolver} from 'unplugin-vue-components/resolvers'
 import pages from 'vite-plugin-pages'
+
+export function mmxFrontendResolver() {
+  return {
+    type: 'component',
+    resolve: (name) => {
+      if (name.startsWith('Mmx')) {
+        return {name, from: '@vesp/mmx-frontend'}
+      }
+    },
+  }
+}
 
 export default function withMmx(namespace, config = {}) {
   if (!namespace || typeof namespace !== 'string') {
@@ -20,12 +30,34 @@ export default function withMmx(namespace, config = {}) {
         ai({
           dts: true,
           include: [/\.[tj]sx?$/, /\.vue$/, /\.vue\?vue/],
-          imports: ['vue', 'vue-router'],
-          packagePresets: ['@vesp/mmx-frontend'],
+          imports: [
+            'vue',
+            'vue-router',
+            {
+              '@vesp/mmx-frontend/api': [
+                'setNamespace',
+                'getNamespace',
+                'useLexicon',
+                ['useLexicon', '$t'],
+                'useApi',
+                'useGet',
+                'usePost',
+                'usePut',
+                'usePatch',
+                'useDelete',
+                'getImageLink',
+                'useToastSuccess',
+                'useToastInfo',
+                'useToastError',
+                'useToastsClear',
+              ],
+            },
+            {'@vesp/mmx-frontend': ['createMmx', 'useConfig', 'useError']},
+          ],
         }),
         components({
           directoryAsNamespace: true,
-          resolvers: [BootstrapVueNextResolver()],
+          resolvers: [BootstrapVueNextResolver(), mmxFrontendResolver()],
           dirs: ['src/mgr/components', 'src/web/components'],
         }),
         pages({dirs: 'src/mgr/pages'}),
