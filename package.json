@@ -2,7 +2,7 @@
   "license": "MIT",
   "name": "@vesp/mmx-frontend",
   "description": "The port of Vesp frontend for MODX",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "type": "module",
   "files": [
     "assets",
@@ -20,6 +20,21 @@
       "import": "./dist/api.es.js",
       "require": "./dist/api.cjs.js",
       "types": "./dist/api.d.ts"
+    },
+    "./toast": {
+      "import": "./dist/toast.es.js",
+      "require": "./dist/toast.cjs.js",
+      "types": "./dist/toast.d.ts"
+    },
+    "./namespace": {
+      "import": "./dist/namespace.es.js",
+      "require": "./dist/namespace.cjs.js",
+      "types": "./dist/namespace.d.ts"
+    },
+    "./lexicon": {
+      "import": "./dist/lexicon.es.js",
+      "require": "./dist/lexicon.cjs.js",
+      "types": "./dist/lexicon.d.ts"
     },
     "./config": "./src/config.js",
     "./assets/toast": "./assets/_toast.scss",

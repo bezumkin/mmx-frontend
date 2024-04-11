@@ -35,10 +35,6 @@ export default function withMmx(namespace, config = {}) {
             'vue-router',
             {
               '@vesp/mmx-frontend/api': [
-                'setNamespace',
-                'getNamespace',
-                'useLexicon',
-                ['useLexicon', '$t'],
                 'useApi',
                 'useGet',
                 'usePost',
@@ -46,6 +42,13 @@ export default function withMmx(namespace, config = {}) {
                 'usePatch',
                 'useDelete',
                 'getImageLink',
+              ],
+            },
+            {'@vesp/mmx-frontend/namespace': ['setNamespace', 'getNamespace']},
+            {'@vesp/mmx-frontend/lexicon': ['useLexicon', ['useLexicon', '$t']]},
+            {
+              '@vesp/mmx-frontend/toast': [
+                'createMmxToast',
                 'useToastSuccess',
                 'useToastInfo',
                 'useToastError',

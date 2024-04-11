@@ -1,11 +1,11 @@
 // @ts-nocheck
 import {App} from 'vue'
-import Toast from 'vue-toastification'
 import MmxModal from './components/modal.vue'
 import MmxTable from './components/table.vue'
 import MmxConfirm from './components/confirm.vue'
 import MmxInputComboBox from './components/input/combo-box.vue'
 import MmxInputAlias from './components/input/alias.vue'
+import {createMmxToast} from './toast.ts'
 import {useLexicon} from './utils/use-lexicon.ts'
 import {getImageLink} from './utils/use-api.ts'
 import {setNamespace} from './utils/use-namespace.ts'
@@ -27,15 +27,7 @@ function createMmx(options: Record<string, any> = {}) {
       }
 
       if (options.toast !== false) {
-        app.use(Toast, {
-          position: 'top-right',
-          maxToasts: 5,
-          timeout: 5000,
-          closeButton: false,
-          closeOnClick: false,
-          transition: 'Vue-Toastification__slideBlurred',
-          ...(options.toast || {}),
-        })
+        app.use(createMmxToast(options.toast))
       }
     },
   }

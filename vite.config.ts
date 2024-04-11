@@ -13,7 +13,7 @@ export default defineConfig({
   ],
   build: {
     lib: {
-      entry: ['./src/index.ts', './src/api.ts'],
+      entry: ['./src/index.ts', './src/api.ts', './src/toast.ts', './src/lexicon.ts', './src/namespace.ts'],
       name: 'MmxFrontend',
       fileName(type, file) {
         return file + '.' + type + '.js'
