@@ -43,14 +43,15 @@
         :fields="tFields"
         :class="tableClass"
         :per-page="tLimit"
-        :sort-by="tSort"
+        :sort-by="tSortBy"
+        :multisort="tSortBy.length > 1"
         :sort-desc="tDir === 'desc'"
         :empty-text="$t(emptyText)"
         :empty-filtered-text="$t(emptyFilteredText)"
         :stacked="stacked"
         :responsive="responsive"
         :show-empty="showEmpty"
-        :sort-internal="false"
+        :no-local-sorting="true"
         :tbody-tr-class="rowClass"
         @sorted="onSort"
       >
@@ -124,9 +125,10 @@
 </template>
 
 <script setup lang="ts">
-import {computed, type PropType, type Ref, ref, watch, provide} from 'vue'
-import type {Breakpoint, TableField, TableItem} from 'bootstrap-vue-next'
+import {computed, type PropType, type Ref, ref, watch, provide, ComputedRef} from 'vue'
+import type {Breakpoint, TableField, TableItem, BTableSortBy} from 'bootstrap-vue-next'
 import type {RouteLocationRaw} from 'vue-router'
+import {BTableSortByOrder} from 'bootstrap-vue-next/src/types/TableTypes.ts'
 import type {MmxTableAction, MmxTableOnLoad} from '../types'
 import {useGet, useDelete} from '../utils/use-api'
 import {useLexicon} from '../utils/use-lexicon'
@@ -241,6 +243,9 @@ const $t = useLexicon
 const internalValue = ref(1)
 const tSort = ref(props.sort)
 const tDir = ref(props.dir)
+const tSortBy: ComputedRef<BTableSortBy[]> = computed(() => {
+  return [{key: props.sort, order: (props.dir || 'asc') as BTableSortByOrder}]
+})
 const tLimit = ref(props.limit)
 const tFilters: Ref<Record<string, any>> = ref(props.filters)
 const tPage = computed({
@@ -280,9 +285,15 @@ const params = computed(() => {
   }
 })
 
-function onSort(field: string, desc: boolean) {
-  tSort.value = field
-  tDir.value = desc ? 'desc' : 'asc'
+function onSort(value: BTableSortBy | string) {
+  if (typeof value === 'string') {
+    if (tSort.value === value) {
+      tDir.value = tDir.value === 'asc' ? 'desc' : 'asc'
+    } else {
+      tDir.value = 'asc'
+    }
+    tSort.value = value
+  }
   refresh()
 }
 

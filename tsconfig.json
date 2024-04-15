@@ -15,6 +15,7 @@
     "jsx": "preserve",
     "outDir": "dist",
     "declaration": true,
+    "noImplicitAny": false,
 
     /* Linting */
     "strict": true,

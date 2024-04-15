@@ -1,5 +1,6 @@
 // @ts-nocheck
 import {App} from 'vue'
+import {createBootstrap} from 'bootstrap-vue-next'
 import MmxModal from './components/modal.vue'
 import MmxTable from './components/table.vue'
 import MmxConfirm from './components/confirm.vue'
@@ -19,6 +20,7 @@ function createMmx(options: Record<string, any> = {}) {
       app.config.globalProperties.$image = getImageLink
 
       if (options.components !== false) {
+        app.use(createBootstrap(options.bootstrap))
         app.component('MmxTable', MmxTable)
         app.component('MmxModal', MmxModal)
         app.component('MmxConfirm', MmxConfirm)
