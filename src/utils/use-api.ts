@@ -31,7 +31,16 @@ export function useApi(endpoint: string, options: FetchOptions<any> = {}) {
 }
 
 export function useGet(endpoint: string, params = {}, options: FetchOptions<any> = {}) {
-  return useApi(endpoint, {...options, query: params, method: 'GET'})
+  const query: Record<string, any> = {}
+  Object.keys(params).forEach((key) => {
+    const value = params[key]
+    if (Array.isArray(value)) {
+      query[`${key}[]`] = value
+    } else {
+      query[key] = value
+    }
+  })
+  return useApi(endpoint, {...options, query, method: 'GET'})
 }
 
 export function usePost(endpoint: string, params = {}, options: FetchOptions<any> = {}) {
