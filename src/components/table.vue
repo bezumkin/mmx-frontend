@@ -293,6 +293,12 @@ function onSort(value: BTableSortBy | string) {
       tDir.value = 'asc'
     }
     tSort.value = value
+  } else if (value.key && value.order) {
+    tSort.value = value.key
+    tDir.value = value.order
+  } else {
+    tSort.value = ''
+    tDir.value = ''
   }
   refresh()
 }
