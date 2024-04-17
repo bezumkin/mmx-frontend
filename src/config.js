@@ -17,6 +17,28 @@ export function mmxFrontendResolver() {
   }
 }
 
+export const aiConfig = {
+  dts: true,
+  include: [/\.[tj]sx?$/, /\.vue$/, /\.vue\?vue/],
+  imports: [
+    'vue',
+    'vue-router',
+    {'@vesp/mmx-frontend/api': ['useApi', 'useGet', 'usePost', 'usePut', 'usePatch', 'useDelete', 'getImageLink']},
+    {'@vesp/mmx-frontend/namespace': ['setNamespace', 'getNamespace']},
+    {'@vesp/mmx-frontend/lexicon': ['useLexicon', ['useLexicon', '$t']]},
+    {
+      '@vesp/mmx-frontend/toast': [
+        'createMmxToast',
+        'useToastSuccess',
+        'useToastInfo',
+        'useToastError',
+        'useToastsClear',
+      ],
+    },
+    {'@vesp/mmx-frontend': ['createMmx', 'useConfig', 'useError']},
+  ],
+}
+
 export default function withMmx(namespace, config = {}) {
   if (!namespace || typeof namespace !== 'string') {
     throw new Error('You should specify a MODX namespace, something like "mmx-extra"')
@@ -27,37 +49,7 @@ export default function withMmx(namespace, config = {}) {
       plugins: [
         vue(),
         eslint(),
-        ai({
-          dts: true,
-          include: [/\.[tj]sx?$/, /\.vue$/, /\.vue\?vue/],
-          imports: [
-            'vue',
-            'vue-router',
-            {
-              '@vesp/mmx-frontend/api': [
-                'useApi',
-                'useGet',
-                'usePost',
-                'usePut',
-                'usePatch',
-                'useDelete',
-                'getImageLink',
-              ],
-            },
-            {'@vesp/mmx-frontend/namespace': ['setNamespace', 'getNamespace']},
-            {'@vesp/mmx-frontend/lexicon': ['useLexicon', ['useLexicon', '$t']]},
-            {
-              '@vesp/mmx-frontend/toast': [
-                'createMmxToast',
-                'useToastSuccess',
-                'useToastInfo',
-                'useToastError',
-                'useToastsClear',
-              ],
-            },
-            {'@vesp/mmx-frontend': ['createMmx', 'useConfig', 'useError']},
-          ],
-        }),
+        ai(aiConfig),
         components({
           directoryAsNamespace: true,
           resolvers: [BootstrapVueNextResolver(), mmxFrontendResolver()],
