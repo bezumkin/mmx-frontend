@@ -17,7 +17,25 @@ First you need to import and use default config in your `vite.config.ts` with ma
 ```js
 import withMmx from '@vesp/mmx-frontend/config'
 
-const config = {} // Optional Vite parameters to merge with default config
+// Optional Vite parameters to merge with default config
+const config = {}
+export default withMmx('mmx-extra', config)
+```
+
+More advanced example with including your local directories to autoimport:
+```js
+import withMmx, {aiConfig} from '@vesp/mmx-frontend/config'
+
+const config = {
+  plugins: [
+    ai({
+      // Default autoimport config with mmx functions
+      ...aiConfig,
+      // Your local autoimport
+      dirs: ['src/mgr/utils'],
+    }),
+  ]
+}
 export default withMmx('mmx-extra', config)
 ```
 
