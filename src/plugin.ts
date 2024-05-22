@@ -20,7 +20,20 @@ function createMmx(options: Record<string, any> = {}) {
       app.config.globalProperties.$image = getImageLink
 
       if (options.components !== false) {
-        app.use(createBootstrap(options.bootstrap))
+        app.use(
+          createBootstrap({
+            plugins: {
+              modalManager: true,
+              modalController: true,
+              components: {
+                global: {
+                  activeClass: 'active',
+                },
+              },
+            },
+            ...(options.bootstrap || {}),
+          }),
+        )
         app.component('MmxTable', MmxTable)
         app.component('MmxModal', MmxModal)
         app.component('MmxConfirm', MmxConfirm)

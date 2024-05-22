@@ -1,32 +1,33 @@
 .mmx-table {
   .b-table {
-    th, td {
+    th {
       vertical-align: middle;
+      white-space: nowrap;
+    }
+
+    td {
+      vertical-align: middle;
+
+      &.table-actions {
+        white-space: nowrap;
+        text-align: right;
+
+        .btn {
+          svg {
+            width: 1rem;
+          }
+
+          &:not(:first-child) {
+            margin-left: 0.25rem;
+          }
+        }
+      }
     }
 
     tr {
       &.inactive {
         td:not(.table-actions) {
           opacity: 0.5;
-        }
-      }
-    }
-
-    th.b-table-sortable-column {
-      white-space: nowrap;
-    }
-
-    td.table-actions {
-      white-space: nowrap;
-      text-align: right;
-
-      .btn {
-        svg {
-          width: 1rem;
-        }
-
-        &:not(:first-child) {
-          margin-left: 0.25rem;
         }
       }
     }
