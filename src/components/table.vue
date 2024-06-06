@@ -24,13 +24,13 @@
 
         <BCol md="4" class="mt-2 mt-md-0">
           <slot name="header-end">
-            <BInputGroup v-if="hasQuery">
+            <BInputGroup v-if="hasQuery" class="mmx-table-search">
               <template #append>
                 <BButton :disabled="!tFilters.query" @click="tFilters.query = null">
                   <i class="icon icon-times fa-fw" />
                 </BButton>
               </template>
-              <BFormInput v-model="tFilters.query" :placeholder="$t('components.query')" />
+              <BFormInput v-model="tFilters.query" :placeholder="$t('components.query')" @keydown="onQueryKeydown" />
             </BInputGroup>
           </slot>
         </BCol>
@@ -428,6 +428,12 @@ async function refresh() {
 }
 
 refresh()
+
+function onQueryKeydown(e: KeyboardEvent) {
+  if (e.key === 'Enter') {
+    e.preventDefault()
+  }
+}
 
 const updateKey = props.updateKey || props.url.split('/').join('-')
 provide('refreshTable', (key: string) => {
