@@ -6,6 +6,7 @@ import MmxTable from './components/table.vue'
 import MmxConfirm from './components/confirm.vue'
 import MmxInputComboBox from './components/input/combo-box.vue'
 import MmxInputAlias from './components/input/alias.vue'
+import MmxInputDatePicker from './components/input/date-picker.vue'
 import {createMmxToast} from './toast.ts'
 import {useLexicon} from './utils/use-lexicon.ts'
 import {getImageLink} from './utils/use-api.ts'
@@ -39,6 +40,7 @@ function createMmx(options: Record<string, any> = {}) {
         app.component('MmxConfirm', MmxConfirm)
         app.component('MmxInputComboBox', MmxInputComboBox)
         app.component('MmxInputAlias', MmxInputAlias)
+        app.component('MmxInputDatePicker', MmxInputDatePicker)
       }
 
       if (options.toast !== false) {
@@ -48,7 +50,7 @@ function createMmx(options: Record<string, any> = {}) {
   }
 }
 
-export {createMmx, MmxModal, MmxTable, MmxConfirm, MmxInputComboBox, MmxInputAlias}
+export {createMmx, MmxModal, MmxTable, MmxConfirm, MmxInputComboBox, MmxInputAlias, MmxInputDatePicker}
 
 declare module 'vue' {
   export interface GlobalComponents {
@@ -57,6 +59,7 @@ declare module 'vue' {
     MmxConfirm: typeof MmxConfirm
     MmxInputComboBox: typeof MmxInputComboBox
     MmxInputAlias: typeof MmxInputAlias
+    MmxInputDatePicker: typeof MmxInputDatePicker
   }
   export interface ComponentCustomProperties {
     $t: typeof useLexicon

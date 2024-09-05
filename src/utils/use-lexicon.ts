@@ -2,7 +2,7 @@ import {getNamespace} from './use-namespace.ts'
 
 let lexiconKey: string
 
-export function useLexicon(key: string, placeholders?: Record<string, string | number>, amount?: number | string) {
+function getLexiconRecords() {
   if (!lexiconKey) {
     const namespace = getNamespace()
     lexiconKey = namespace
@@ -10,8 +10,12 @@ export function useLexicon(key: string, placeholders?: Record<string, string | n
       .map((i: string, idx: number) => (!idx ? i.toLowerCase() : i.charAt(0).toUpperCase() + i.slice(1).toLowerCase()))
       .join('')
   }
-  // @ts-ignore
-  const lexicon = window[lexiconKey]?.lexicon || {}
+
+  return window[lexiconKey]?.lexicon || {}
+}
+
+export function useLexicon(key: string, placeholders?: Record<string, string | number>, amount?: number | string) {
+  const lexicon = getLexiconRecords()
   if (key in lexicon) {
     let value = lexicon[key]
     if (placeholders) {
@@ -31,6 +35,20 @@ export function useLexicon(key: string, placeholders?: Record<string, string | n
   console.warn(`Could not load lexicon key: "${key}"`)
 
   return key
+}
+
+export function getLexicon() {
+  const expand = (obj) =>
+    Object.keys(obj).reduce((res, k) => {
+      k.split('.').reduce(
+        (acc, e, i, keys) =>
+          acc[e] || (acc[e] = isNaN(Number(keys[i + 1])) ? (keys.length - 1 === i ? obj[k] : {}) : []),
+        res,
+      )
+      return res
+    }, {})
+
+  return expand(getLexiconRecords())
 }
 
 function pluralRule(choice: number, choicesLength: number) {

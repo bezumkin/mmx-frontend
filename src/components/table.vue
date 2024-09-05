@@ -30,7 +30,11 @@
                   <i class="icon icon-times fa-fw" />
                 </BButton>
               </template>
-              <BFormInput v-model="tFilters.query" :placeholder="$t('components.query')" @keydown="onQueryKeydown" />
+              <BFormInput
+                v-model="tFilters.query"
+                :placeholder="$t('components.table.query')"
+                @keydown="onQueryKeydown"
+              />
             </BInputGroup>
           </slot>
         </BCol>
@@ -98,7 +102,7 @@
               <BSpinner v-if="loading" :small="true" />
               <i v-else class="icon icon-repeat fa-fw" />
             </BButton>
-            {{ $t('components.records', {total}, total) }}
+            {{ $t('components.table.records', {total}, total) }}
           </slot>
         </BCol>
       </BRow>
@@ -223,19 +227,19 @@ const props = defineProps({
   },
   emptyText: {
     type: String,
-    default: 'components.no_data',
+    default: 'components.table.no_data',
   },
   emptyFilteredText: {
     type: String,
-    default: 'components.no_results',
+    default: 'components.table.no_results',
   },
   deleteTitle: {
     type: String,
-    default: 'components.delete.title',
+    default: 'components.table.delete.title',
   },
   deleteText: {
     type: String,
-    default: 'components.delete.confirm',
+    default: 'components.table.delete.confirm',
   },
 })
 
@@ -351,8 +355,14 @@ function getParams(asObject = false) {
   const params: Record<string, any> = {}
   Object.keys(props.filters).forEach((i) => {
     if (props.filters[i] !== '' && props.filters[i] !== null) {
-      params[i] =
-        typeof props.filters[i] === 'object' && !asObject ? JSON.stringify(props.filters[i]) : props.filters[i]
+      if (Array.isArray(props.filters[i])) {
+        props.filters[i].forEach((v2, k2) => {
+          params[`${i}[${k2}]`] = v2
+        })
+      } else {
+        params[i] =
+          typeof props.filters[i] === 'object' && !asObject ? JSON.stringify(props.filters[i]) : props.filters[i]
+      }
     }
   })
   if (tSort.value) {

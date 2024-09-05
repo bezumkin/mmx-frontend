@@ -25,7 +25,7 @@ export const aiConfig = {
     'vue-router',
     {'@vesp/mmx-frontend/api': ['useApi', 'useGet', 'usePost', 'usePut', 'usePatch', 'useDelete', 'getImageLink']},
     {'@vesp/mmx-frontend/namespace': ['setNamespace', 'getNamespace']},
-    {'@vesp/mmx-frontend/lexicon': ['useLexicon', ['useLexicon', '$t']]},
+    {'@vesp/mmx-frontend/lexicon': ['useLexicon', ['useLexicon', '$t'], 'getLexicon']},
     {
       '@vesp/mmx-frontend/toast': [
         'createMmxToast',

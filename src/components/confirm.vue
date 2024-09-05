@@ -2,7 +2,7 @@
   <section class="mmx-modal mmx-confirm">
     <BModal ref="modal" :model-value="showModal" v-bind="modalProps" :title="$t(title)">
       <template #default>
-        {{ $t('components.delete.confirm') }}
+        {{ $t('components.confirm.message') }}
       </template>
       <template #footer>
         <slot ref="footer" name="footer" v-bind="{hide}">
@@ -40,7 +40,7 @@ const props = defineProps({
   },
   title: {
     type: String,
-    default: 'components.delete.title',
+    default: 'components.confirm.title',
   },
   centered: {
     type: Boolean,
